@@ -3,12 +3,15 @@ import compareService from "@/services/compareResultService";
 
 export default function useGetCompareRank(options = {}) {
   const [compareRankList, setCompareRankList] = useState([]);
+  const { myStartupId, orderBy } = options;
 
   useEffect(() => {
     const params = new URLSearchParams({
       orderBy: "totalInvestment_desc",
-      ...options,
     });
+    if (myStartupId !== undefined) params.set("myStartupId", myStartupId);
+    if (orderBy !== undefined) params.set("orderBy", orderBy);
+
     async function fetchGetResult() {
       try {
         const result = await compareService.getCompareRankList(params);
@@ -19,7 +22,7 @@ export default function useGetCompareRank(options = {}) {
       }
     }
     fetchGetResult();
-  }, [options.orderBy]);
+  }, [myStartupId, orderBy]);
 
   return { compareRankList };
 }

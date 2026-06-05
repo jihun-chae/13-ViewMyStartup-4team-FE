@@ -1,0 +1,19 @@
+:root {
+  /*colors*/
+  --black-black_100: #2e2e2e;
+  --black-black_200: #282828;
+  --black-black_300: #212121;
+  --black-black_400: #131313;
+  --gray-gray_100: #d8d8d8;
+  --gray-gray_200: #747474;
+  --gray-gray_300: #4b4b4b;
+  --gray-gray_400: #333333;
+
+  --white-white: #ffffff;
+  --brand-brand_orange: #eb5230;
+  --blue-blue: #558fff;
+  --red-red_error: #c41013;
+
+  /*font*/
+  --font-pretendard: "Pretendard Variable", sans-serif;
+}

@@ -8,7 +8,7 @@ export const investmentSchema = z
       .min(1, "투자 금액을 입력해 주세요.")
       .refine(
         (val) => !isNaN(Number(val.replace(/,/g, ""))),
-        "숫자만 입력해 주세요."
+        "숫자만 입력해 주세요.",
       ),
     comment: z.string().min(1, "투자 코멘트를 입력해 주세요."),
     password: z.string().min(1, "비밀번호를 입력해 주세요."),

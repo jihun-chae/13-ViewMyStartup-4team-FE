@@ -3,7 +3,6 @@ import styles from "./CompareCardContent.module.css";
 
 export default function CompareCardContent({
   compareCompanies,
-  onAdd, // 이후에 로컬 스토리지 handle 넘길용
   onRemove,
 }) {
   if (compareCompanies.length === 0) {

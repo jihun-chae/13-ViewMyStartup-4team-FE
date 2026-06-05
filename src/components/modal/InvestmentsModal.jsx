@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Modal from "@/components/common/Modal";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
@@ -38,21 +38,27 @@ function InvestmentsModal({
   const [form, setForm] = useState(INITIAL_FORM);
   const [errors, setErrors] = useState({});
 
-  useEffect(() => {
-    if (!isOpen) return;
-    if (isEdit && initialData) {
-      setForm({
-        investorName: initialData.investorName ?? "",
-        amount: initialData.amount ? String(initialData.amount) : "",
-        comment: initialData.comment ?? "",
-        password: "",
-        passwordConfirm: "",
-      });
-    } else {
-      setForm(INITIAL_FORM);
+  const [prevIsOpen, setPrevIsOpen] = useState(isOpen);
+  const [prevMode, setPrevMode] = useState(mode);
+
+  if (isOpen !== prevIsOpen || mode !== prevMode) {
+    setPrevIsOpen(isOpen);
+    setPrevMode(mode);
+    if (isOpen) {
+      if (isEdit && initialData) {
+        setForm({
+          investorName: initialData.investorName ?? "",
+          amount: initialData.amount ? String(initialData.amount) : "",
+          comment: initialData.comment ?? "",
+          password: "",
+          passwordConfirm: "",
+        });
+      } else {
+        setForm(INITIAL_FORM);
+      }
+      setErrors({});
     }
-    setErrors({});
-  }, [isOpen, mode]);
+  }
 
   if (!isOpen) return null;
 

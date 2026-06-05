@@ -4,11 +4,24 @@ import compareService from "@/services/compareResultService";
 export default function useGetCompareResult(options = {}) {
   const [compareResultList, setCompareResultList] = useState([]);
   const [myStartup, setMystartup] = useState({});
+  const { myStartupId, compareStartupIds, orderBy } = options;
+  const compareStartupIdsStr = Array.isArray(compareStartupIds)
+    ? compareStartupIds.join(",")
+    : String(compareStartupIds ?? "");
+
   useEffect(() => {
     const params = new URLSearchParams({
       orderBy: "totalInvestment_desc",
-      ...options,
     });
+    if (myStartupId !== undefined) params.set("myStartupId", myStartupId);
+    if (orderBy !== undefined) params.set("orderBy", orderBy);
+
+    if (compareStartupIdsStr) {
+      compareStartupIdsStr.split(",").forEach((id) => {
+        if (id) params.append("compareStartupIds", id);
+      });
+    }
+
     async function fetchGetResult() {
       try {
         const result = await compareService.getCompareList(params);
@@ -19,7 +32,7 @@ export default function useGetCompareResult(options = {}) {
       }
     }
     fetchGetResult();
-  }, [options.orderBy]);
+  }, [myStartupId, compareStartupIdsStr, orderBy]);
 
   return { myStartup, compareResultList };
 }
